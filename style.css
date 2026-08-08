@@ -40,6 +40,13 @@ body {
     padding: 1rem;
 }
 
+.intro_ducao_presentes{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 1rem;
+}
+
 .girassol-container {
     position: fixed;
     top: 0;
@@ -150,6 +157,12 @@ body {
 }
 
 .apresentacao__links__navegacao:hover {
+    background-color: var(--cor-primaria);
+    transform: translateY(-3px);
+    color: var(--cor-terciaria);
+}
+
+.intro_ducao_presentes:hover{
     background-color: var(--cor-primaria);
     transform: translateY(-3px);
     color: var(--cor-terciaria);
