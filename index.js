@@ -1,16 +1,16 @@
-const container = document.querySelector('.container__caixa');
+const container = document.querySelector('.girassol-container');
 
     function criarGirassol() {
-        const moeda = document.createElement('div');
-        moeda.classList.add('girassol');
+        const girassol = document.createElement('div');
+        girassol.classList.add('girassol');
 
         const x = Math.random() * window.innerWidth;
         const y = Math.random() * window.innerHeight;
 
-        moeda.style.left = `${x}px`;
-        moeda.style.top = `${y}px`;
+        girassol.style.left = `${x}px`;
+        girassol.style.top = `${y}px`;
 
-        container.appendChild(moeda);
+        container.appendChild(girassol);
     }
 
     

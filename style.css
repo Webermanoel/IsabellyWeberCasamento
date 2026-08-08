@@ -40,7 +40,7 @@ body {
     padding: 1rem;
 }
 
-.moedas-container {
+.girassol-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -50,11 +50,11 @@ body {
     z-index: -1;
 }
 
-.moeda {
+.girassol {
     position: absolute;
     width: 30px;
     height: 30px;
-    background-image: url(images/coins.jpeg);
+    background-image: url(images/girassol.jpg);
     background-size: cover;
     border-radius: 50%;
     opacity: 0.8;
