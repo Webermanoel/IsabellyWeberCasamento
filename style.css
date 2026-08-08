@@ -1,7 +1,256 @@
-body{
-    background-color:aquamarine;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@200&display=swap');
+
+:root {
+    --cor-primaria: black;
+    --cor-secundaria: darkturquoise;
+    --cor-terciaria: white;
+    --cor-quartaria: yellow;
+    --cor-hover: darkviolet;
+    --cor-quintaria: gray;
+    --cor-sextaria: bisque;
+    --fonte-primaria: 'Montserrat', sans-serif;
+    --fonte-secundaria: 'Poppins', sans-serif;
 }
 
-.titulo_page{
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--cor-secundaria);
+    color: var(--cor-primaria);
+    font-family: var(--fonte-primaria);
+    line-height: 1.6;
+}
+
+.titulo_pricipal {
     text-align: center;
+    font-weight: bold;
+    font-size: 2.2rem;
+    margin-top: 2rem;
+    padding: 0 1rem;
+}
+
+.intro_ducao {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 1rem;
+}
+
+.moedas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.moeda {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-image: url(images/coins.jpeg);
+    background-size: cover;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.apresentacao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    gap: 1.5rem;
+    text-align: center;
+    min-height: 100vh;
+}
+
+.apresentacao_texto {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0 1rem;
+}
+
+.fixed {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.link_navegacao {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.link_voltar {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: bold;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: 90%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}
+
+
+.apresentacao__links__navegacao {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 8px;
+    padding: 1rem;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--cor-primaria);
+    background-color: var(--cor-terciaria);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.apresentacao__links__login{
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0 1rem;
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}
+
+.apresentacao__login__imagem{
+    width: 30px;
+    height: 30px;
+    transition: transform 0.1s ease;
+}
+
+.apresentacao__links__imagem {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.apresentacao__links__navegacao:hover {
+    background-color: var(--cor-primaria);
+    transform: translateY(-3px);
+    color: var(--cor-terciaria);
+}
+
+.apresentacao__links__imagem:hover {
+    transform: scale(1.2);
+}
+
+.apresentacao__login__imagem:hover{
+    transform: scale(1.2);
+}
+
+.link_imagem {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    opacity: 0.5;
+}
+
+.link_image {
+    position: static;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.login_premio{
+    align-items: center;
+    gap: 1rem;
+    border-radius: 8px;
+    padding: 1rem;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--cor-primaria);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}
+
+.campo_pre{
+    padding: 0.8rem;
+    border-radius: 5px;
+}
+
+.entrar_login{
+    padding: 0.3rem;
+    border-radius: 5px;
+    color: var(--cor-primaria);
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .titulo_pricipal {
+        font-size: 1.8rem;
+    }
+
+    .intro_ducao {
+        font-size: 1.2rem;
+    }
+
+    .apresentacao_texto {
+        font-size: 1rem;
+    }
+
+    .link_navegacao {
+        font-size: 0.9rem;
+        top: 12px;
+        right: 12px;
+    }
+
+    .link_imagem {
+        width: 24px;
+        height: 24px;
+    }
+
+    .link_image{
+        width: 24px;
+        height: 24px;
+    }
+
+    .apresentacao__links__navegacao {
+        font-size: 1rem;
+    }
+    
+    .apresentacao__links__imagem {
+        width: 30px;
+        height: 30px;
+    }
+
+    .apresentacao__links__navegacao {
+        padding: 0.5rem; 
+        font-size: 0.9rem; 
+    }
+
+    .apresentacao__links__login{
+        padding: 0.5rem; 
+        font-size: 0.9rem; 
+    }
 }
