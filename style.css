@@ -47,6 +47,15 @@ body {
     padding: 1rem;
 }
 
+.nome_convidado{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.2rem;
+    background-color: var(--cor-terciaria);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
 .girassol-container {
     position: fixed;
     top: 0;
@@ -157,6 +166,12 @@ body {
 }
 
 .apresentacao__links__navegacao:hover {
+    background-color: var(--cor-primaria);
+    transform: translateY(-3px);
+    color: var(--cor-terciaria);
+}
+
+.nome_convidado:hover{
     background-color: var(--cor-primaria);
     transform: translateY(-3px);
     color: var(--cor-terciaria);
