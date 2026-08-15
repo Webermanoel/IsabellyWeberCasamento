@@ -1,3 +1,1 @@
-function myFunction(){
-    document.getElementById("demo").innerHTML = "Digite o seu nome:";
-}
+const confirma = document.getElementById('confirmar');
