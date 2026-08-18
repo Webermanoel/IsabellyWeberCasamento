@@ -47,6 +47,14 @@ body {
     padding: 1rem;
 }
 
+#cancelar{
+    text-align: center;
+}
+
+#confirmar{
+    text-align: center;
+}
+
 .nome_convidado{
     text-align: center;
     font-size: 1.5rem;
