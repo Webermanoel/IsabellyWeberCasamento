@@ -4,18 +4,34 @@ const cancela = document.getElementById("cancelar");
 let eventoAtual = "";
 let nome = "";
 
+const listaConvidados = ["Leci Correa", "Iracema Alves Abel", "Wemersom Correa"];
 
-confirma.addEventListener("click", function(){
-    eventoAtual = "";
-    nome = prompt("Para confirmar, digite seu nome:"); 
-})
+function validarConvidado() {
+    if (nome) {
+        let nomeEncontrado = listaConvidados.find(
+            n => n.toLowerCase() === nome.trim().toLowerCase()
+        );
 
-cancela.addEventListener('click', function(){
-    eventoAtual = "";
-    nome = prompt("Para cancelar, digite seu nome:")
-})
-
-if(eventoAtual === confirma){
-    alert("Presença confirmada");
+        if (nomeEncontrado) {
+            if (eventoAtual === "confirmar") {
+                alert(`Presença confirmada para: ${nomeEncontrado}`);
+            } else if (eventoAtual === "cancelar") {
+                alert(`Inscrição cancelada para: ${nomeEncontrado}`);
+            }
+        } else {
+            alert("Nome não encontrado na lista de convidados.");
+        }
+    }
 }
 
+confirma.addEventListener("click", function() {
+    eventoAtual = "confirmar";
+    nome = prompt("Para confirmar, digite seu nome:"); 
+    validarConvidado();
+});
+
+cancela.addEventListener('click', function() {
+    eventoAtual = "cancelar";
+    nome = prompt("Para cancelar, digite seu nome:");
+    validarConvidado(); 
+});
