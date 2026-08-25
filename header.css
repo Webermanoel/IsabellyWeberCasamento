@@ -1,0 +1,55 @@
+@import url(style.css);
+
+
+.lista-menu-titulo{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 8px;
+    padding: 1rem;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 600;
+    background-color: var(--cor-terciaria);
+    color: var(--cor-primaria);
+    border: none;
+    cursor: pointer;
+}
+
+.lista-presentes{
+    position: relative;
+}
+
+.lista-menu-presente{
+    color: var(--cor-primaria);
+    display: none;
+    position: absolute;
+    background-color: var(--cor-terciaria);
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.lista-presente-link{
+    color: var(--cor-primaria);
+}
+
+.lista-menu-presente a{
+    color: var(--cor-primaria);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.lista-menu-presente a:hover{
+    background-color: var(--cor-primaria);
+    color: var(--cor-terciaria);
+}
+
+.lista-presentes:hover .lista-menu-presente{
+    display: block;
+}
+
+.lista-presentes:hover .lista-menu-titulo{
+    background-color: var(--cor-primaria);
+    color: var(--cor-terciaria);
+}
