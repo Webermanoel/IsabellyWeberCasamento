@@ -211,8 +211,8 @@ app.post("/api/convidados/cancelar", async (req, res) => {
         const resultado = await pool.query(
             `
             UPDATE convidados
-            SET confirmado = FALSE,
-                confirmado_em = NULL
+                SET confirmado = FALSE,
+                confirmado_em = NOW()
             WHERE id = $1
             `,
             [id]
