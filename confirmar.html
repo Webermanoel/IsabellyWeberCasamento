@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Confirmação</title>
+    <title>Confirmação de Presença</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,11 +15,34 @@
     <div class="girassol-container"></div>
 
     <main class="apresentacao">
-         <h1 class="titulo_pricipal"><strong></strong> </h1>
-            <p class="intro_ducao">Você esta sendo convidado para o casamento de
-                Isabelly e Weber</p>
 
-        <button
+        <h1 class="titulo_pricipal">
+            Confirmação de Presença
+        </h1>
+
+        <p class="intro_ducao">
+            Você está sendo convidado para o casamento de
+            Isabelly e Weber!
+        </p>
+
+        <div class="campo-nome">
+    <label for="nome">Confirme sua presença</label>
+
+    <p>Digite seu nome e sobrenome abaixo</p>
+
+    <input
+        type="text"
+        id="nome"
+        name="nome"
+        placeholder="Ex.: Maria Silva"
+        autocomplete="name"
+        maxlength="150"
+        required
+    >
+    
+    <p id="mensagem" role="status" aria-live="polite"></p>
+
+            <button
             class="apresentacao__links__navegacao"
             type="button"
             id="confirmar">
@@ -29,11 +52,10 @@
             <img
                 class="apresentacao__links__imagem"
                 src="images/alianças.jpg"
-                alt="icon alianca"
+                alt="Alianças"
             >
 
         </button>
-
 
         <button
             class="apresentacao__links__navegacao"
@@ -45,23 +67,26 @@
             <img
                 class="apresentacao__links__imagem"
                 src="images/alianças.jpg"
-                alt="icon alianca"
+                alt="Alianças"
             >
 
         </button>
-        
-        <button
-            class="apresentacao__links__navegacao"
-            type="button"
-            id="Presentes">
-            
-                    <a class="apresentacao__links__navegacao" href="presentes.html">
-                        <img class="apresentacao__links__imagem" src="images/presente.jpg" alt="icon alianca">
-                        Lista de Presentes 🎁!
-                    </a>
-                
 
-        </button>
+        <a
+            class="apresentacao__links__navegacao"
+            href="presentes.html">
+
+            <img
+                class="apresentacao__links__imagem"
+                src="images/presente.jpg"
+                alt="Presente"
+            >
+
+            Lista de Presentes 🎁!
+
+        </a>
+
+</div>
 
     </main>
 

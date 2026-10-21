@@ -1,157 +1,67 @@
 const confirma = document.getElementById("confirmar");
 const cancela = document.getElementById("cancelar");
+const campoNome = document.getElementById("nome");
+const mensagem = document.getElementById("mensagem");
 
-let eventoAtual = "";
-let nome = "";
+async function enviarAcao(acao) {
+    const nome = campoNome.value.trim();
 
-
-async function validarConvidado() {
+    mensagem.textContent = "";
 
     if (!nome) {
+        mensagem.textContent = "Digite seu nome e sobrenome.";
+        campoNome.focus();
         return;
     }
 
+    if (nome.split(/\s+/).length < 2) {
+        mensagem.textContent =
+            "Por favor, digite seu nome e sobrenome.";
+        campoNome.focus();
+        return;
+    }
+
+    confirma.disabled = true;
+    cancela.disabled = true;
+
     try {
+        const resposta = await fetch(
+            `/api/convidados/${acao}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ nome })
+            }
+        );
 
-        const resposta = await fetch("/api/convidados/buscar", {
+        const resultado = await resposta.json();
 
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                nome: nome.trim()
-            })
-
-        });
-
-
-        const dados = await resposta.json();
-
-
-        if (!dados.encontrado) {
-
-            alert("Nome não encontrado na lista de convidados.");
-
+        if (!resposta.ok || !resultado.sucesso) {
+            mensagem.textContent =
+                resultado.mensagem ||
+                "Não foi possível realizar a operação.";
             return;
         }
 
-
-        if (eventoAtual === "confirmar") {
-
-            const confirmar = await fetch(
-                "/api/convidados/confirmar",
-                {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        id: dados.id
-                    })
-
-                }
-            );
-
-
-            const resultado = await confirmar.json();
-
-
-            if (resultado.sucesso) {
-
-                alert(
-                    `Presença confirmada para: ${dados.nome}`
-                );
-
-            } else {
-
-                alert(
-                    resultado.mensagem ||
-                    "Não foi possível confirmar a presença."
-                );
-
-            }
-
-        }
-
-
-        else if (eventoAtual === "cancelar") {
-
-            const cancelar = await fetch(
-                "/api/convidados/cancelar",
-                {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        id: dados.id
-                    })
-
-                }
-            );
-
-
-            const resultado = await cancelar.json();
-
-
-            if (resultado.sucesso) {
-
-                alert(
-                    `Presença cancelada para: ${dados.nome}`
-                );
-
-            } else {
-
-                alert(
-                    resultado.mensagem ||
-                    "Não foi possível cancelar a presença."
-                );
-
-            }
-
-        }
+        mensagem.textContent = resultado.mensagem;
 
     } catch (erro) {
-
         console.error("Erro:", erro);
 
-        alert(
-            "Erro ao conectar com o servidor."
-        );
-
+        mensagem.textContent =
+            "Erro ao conectar com o servidor. Tente novamente.";
+    } finally {
+        confirma.disabled = false;
+        cancela.disabled = false;
     }
 }
 
-confirma.addEventListener("click", function () {
-
-    eventoAtual = "confirmar";
-
-    nome = prompt(
-        "Para confirmar, digite seu nome e sobrenome:"
-    );
-
-    validarConvidado();
-
+confirma.addEventListener("click", () => {
+    enviarAcao("confirmar");
 });
 
-
-cancela.addEventListener("click", function () {
-
-    eventoAtual = "cancelar";
-
-    nome = prompt(
-        "Para cancelar, digite seu nome e sobrenome:"
-    );
-
-    validarConvidado();
-
+cancela.addEventListener("click", () => {
+    enviarAcao("cancelar");
 });

@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const { Pool } = pg;
-
 const app = express();
 
 app.use(express.json());
@@ -24,244 +23,111 @@ pool.connect()
         client.release();
     })
     .catch(erro => {
-        console.error(
-            "Erro ao conectar ao Supabase:",
-            erro.message
-        );
+        console.error("Erro ao conectar ao Supabase:", erro.message);
     });
 
+// CONFIRMAR PRESENÇA
+app.post("/api/convidados/confirmar", async (req, res) => {
+    const nome = typeof req.body.nome === "string"
+        ? req.body.nome.trim().replace(/\s+/g, " ")
+        : "";
 
-app.post("/api/convidados/buscar", async (req, res) => {
-
-    const { nome } = req.body;
-
-    if (!nome) {
-
+    if (!nome || nome.length > 150 || nome.split(" ").length < 2) {
         return res.status(400).json({
-            encontrado: false,
-            mensagem: "Nome não informado."
+            sucesso: false,
+            mensagem: "Digite seu nome e sobrenome corretamente."
         });
-
     }
 
-
     try {
-
         const resultado = await pool.query(
-            `
-            SELECT id, nome, confirmado
-            FROM convidados
-            WHERE LOWER(TRIM(nome)) = LOWER(TRIM($1))
-            LIMIT 1
-            `,
+            `INSERT INTO public.convidados
+                (nome, confirmado, confirmado_em)
+             VALUES ($1, TRUE, NOW())
+             ON CONFLICT (
+                (LOWER(REGEXP_REPLACE(TRIM(nome), '[[:space:]]+', ' ', 'g')))
+             )
+             DO UPDATE SET
+                confirmado = TRUE,
+                confirmado_em = CASE
+                    WHEN public.convidados.confirmado = TRUE
+                        THEN public.convidados.confirmado_em
+                    ELSE NOW()
+                END
+             RETURNING id, nome, confirmado`,
             [nome]
         );
 
+        const convidado = resultado.rows[0];
 
-        if (resultado.rows.length === 0) {
+        console.log(`Confirmação processada - ID: ${convidado.id}`);
 
-            return res.json({
-                encontrado: false
+        return res.json({
+            sucesso: true,
+            mensagem: `Presença confirmada com sucesso, ${convidado.nome}!`
+        });
+
+    } catch (erro) {
+        console.error("Erro ao confirmar presença:", erro.message);
+
+        return res.status(500).json({
+            sucesso: false,
+            mensagem: "Não foi possível salvar a confirmação. Tente novamente."
+        });
+    }
+});
+
+// CANCELAR PRESENÇA
+app.post("/api/convidados/cancelar", async (req, res) => {
+    const nome = typeof req.body.nome === "string"
+        ? req.body.nome.trim().replace(/\s+/g, " ")
+        : "";
+
+    if (!nome || nome.length > 150 || nome.split(" ").length < 2) {
+        return res.status(400).json({
+            sucesso: false,
+            mensagem: "Digite seu nome e sobrenome corretamente."
+        });
+    }
+
+    try {
+        const resultado = await pool.query(
+            `UPDATE public.convidados
+             SET confirmado = FALSE,
+                 confirmado_em = NOW()
+             WHERE LOWER(REGEXP_REPLACE(TRIM(nome), '[[:space:]]+', ' ', 'g'))
+                 = LOWER(REGEXP_REPLACE(TRIM($1), '[[:space:]]+', ' ', 'g'))
+               AND confirmado = TRUE
+             RETURNING id, nome`,
+            [nome]
+        );
+
+        if (resultado.rowCount === 0) {
+            return res.status(404).json({
+                sucesso: false,
+                mensagem: "Não encontramos uma confirmação ativa com esse nome."
             });
-
         }
-
 
         const convidado = resultado.rows[0];
 
+        console.log(`Presença cancelada - ID: ${convidado.id}`);
 
-        res.json({
-
-            encontrado: true,
-
-            id: convidado.id,
-
-            nome: convidado.nome,
-
-            confirmado: convidado.confirmado
-
+        return res.json({
+            sucesso: true,
+            mensagem: `Presença cancelada com sucesso, ${convidado.nome}.`
         });
-
 
     } catch (erro) {
+        console.error("Erro ao cancelar presença:", erro.message);
 
-        console.error(
-            "Erro ao buscar convidado:",
-            erro
-        );
-
-
-        res.status(500).json({
-
-            encontrado: false,
-
-            mensagem: "Erro ao consultar o banco de dados."
-
+        return res.status(500).json({
+            sucesso: false,
+            mensagem: "Não foi possível cancelar a presença. Tente novamente."
         });
-
     }
-
 });
-
-
-app.post("/api/convidados/confirmar", async (req, res) => {
-
-    const { id } = req.body;
-
-
-    if (!id) {
-
-        return res.status(400).json({
-
-            sucesso: false,
-
-            mensagem: "ID do convidado não informado."
-
-        });
-
-    }
-
-
-    try {
-
-        const resultado = await pool.query(
-            `
-            UPDATE convidados
-            SET confirmado = TRUE,
-                confirmado_em = NOW()
-            WHERE id = $1
-            `,
-            [id]
-        );
-
-
-        if (resultado.rowCount === 0) {
-
-            return res.status(404).json({
-
-                sucesso: false,
-
-                mensagem: "Convidado não encontrado."
-
-            });
-
-        }
-
-
-        console.log(
-            `Presença confirmada - ID: ${id}`
-        );
-
-
-        res.json({
-
-            sucesso: true
-
-        });
-
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao confirmar presença:",
-            erro
-        );
-
-
-        res.status(500).json({
-
-            sucesso: false,
-
-            mensagem: "Erro ao salvar confirmação."
-
-        });
-
-    }
-
-});
-
-
-app.post("/api/convidados/cancelar", async (req, res) => {
-
-    const { id } = req.body;
-
-
-    if (!id) {
-
-        return res.status(400).json({
-
-            sucesso: false,
-
-            mensagem: "ID do convidado não informado."
-
-        });
-
-    }
-
-
-    try {
-
-        const resultado = await pool.query(
-            `
-            UPDATE convidados
-                SET confirmado = FALSE,
-                confirmado_em = NOW()
-            WHERE id = $1
-            `,
-            [id]
-        );
-
-
-        if (resultado.rowCount === 0) {
-
-            return res.status(404).json({
-
-                sucesso: false,
-
-                mensagem: "Convidado não encontrado."
-
-            });
-
-        }
-
-
-        console.log(
-            `Presença cancelada - ID: ${id}`
-        );
-
-
-        res.json({
-
-            sucesso: true
-
-        });
-
-
-    } catch (erro) {
-
-        console.error(
-            "Erro ao cancelar presença:",
-            erro
-        );
-
-
-        res.status(500).json({
-
-            sucesso: false,
-
-            mensagem: "Erro ao cancelar confirmação."
-
-        });
-
-    }
-
-});
-
 
 app.listen(3000, () => {
-
-    console.log(
-        "Servidor rodando em http://localhost:3000"
-    );
-
+    console.log("Servidor rodando em http://localhost:3000");
 });
