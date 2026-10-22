@@ -8,6 +8,9 @@ const { Pool } = pg;
 const app = express();
 
 app.use(express.json());
+app.get("/", (req, res) => {
+    res.redirect("/index.html");
+});
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
