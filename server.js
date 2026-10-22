@@ -8,7 +8,7 @@ const { Pool } = pg;
 const app = express();
 
 app.use(express.json());
-app.use(express.static("."));
+app.use(express.static("public"));
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -182,6 +182,12 @@ app.post("/api/presentes/:id/reservar", async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log("Servidor rodando em http://localhost:3000");
-});
+if (!process.env.VERCEL) {
+    const PORT = process.env.PORT || 3000;
+
+    app.listen(PORT, () => {
+        console.log(`Servidor rodando em http://localhost:${PORT}`);
+    });
+}
+
+export default app;
