@@ -26,7 +26,6 @@ pool.connect()
         console.error("Erro ao conectar ao Supabase:", erro.message);
     });
 
-// CONFIRMAR PRESENÇA
 app.post("/api/convidados/confirmar", async (req, res) => {
     const nome = typeof req.body.nome === "string"
         ? req.body.nome.trim().replace(/\s+/g, " ")
@@ -77,7 +76,6 @@ app.post("/api/convidados/confirmar", async (req, res) => {
     }
 });
 
-// CANCELAR PRESENÇA
 app.post("/api/convidados/cancelar", async (req, res) => {
     const nome = typeof req.body.nome === "string"
         ? req.body.nome.trim().replace(/\s+/g, " ")
@@ -124,6 +122,62 @@ app.post("/api/convidados/cancelar", async (req, res) => {
         return res.status(500).json({
             sucesso: false,
             mensagem: "Não foi possível cancelar a presença. Tente novamente."
+        });
+    }
+});
+
+app.get("/api/presentes", async (req, res) => {
+    try {
+        const resultado = await pool.query(`
+            SELECT id, nome
+            FROM public.presentes
+            WHERE reservado = FALSE
+            ORDER BY nome ASC
+        `);
+
+        res.json(resultado.rows);
+    } catch (erro) {
+        console.error("Erro ao listar presentes:", erro.message);
+        res.status(500).json({
+            mensagem: "Não foi possível carregar os presentes."
+        });
+    }
+});
+
+app.post("/api/presentes/:id/reservar", async (req, res) => {
+    const id = Number(req.params.id);
+
+    if (!Number.isSafeInteger(id) || id <= 0) {
+        return res.status(400).json({
+            mensagem: "Presente inválido."
+        });
+    }
+
+    try {
+        const resultado = await pool.query(`
+            UPDATE public.presentes
+            SET reservado = TRUE,
+                reservado_em = NOW()
+            WHERE id = $1
+              AND reservado = FALSE
+            RETURNING id, nome
+        `, [id]);
+
+        if (resultado.rowCount === 0) {
+            return res.status(409).json({
+                mensagem: "Esse presente já foi escolhido por outra pessoa."
+            });
+        }
+
+        res.json({
+            sucesso: true,
+            mensagem: "Obrigado! Seu presente foi confirmado.",
+            presente: resultado.rows[0]
+        });
+    } catch (erro) {
+        console.error("Erro ao reservar presente:", erro.message);
+        res.status(500).json({
+            mensagem: "Não foi possível confirmar o presente."
         });
     }
 });

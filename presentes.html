@@ -1,50 +1,141 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de presentes</title>
+
+    <title>Lista de Presentes | Isabelly e Weber</title>
+
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="presentes.css">
+
+    <script src="presentes.js" defer></script>
 </head>
 <body>
     <div class="girassol-container"></div>
-    <main class="apresentacao">
-        <div class="lista-presentes">
-        <button class="lista-menu-titulo">Lista de Presentes</button>
-        <div class="lista-menu-presente">
-            <a href="#" class="lista-presente-link">jogo de cama</a>
-            <a href="#" class="lista-presente-link">jogo de panela</a>
-            <a href="#" class="lista-presente-link">panela de pressão</a>
-            <a href="#" class="lista-presente-link">cortina de pia</a>
-            <a href="#" class="lista-presente-link">jogo de talher</a>
-            <a href="#" class="lista-presente-link">jogo de pote</a>
-            <a href="#" class="lista-presente-link">tupperware</a>
-            <a href="#" class="lista-presente-link">tábua de carne</a>
-            <a href="#" class="lista-presente-link">relador de queijo</a>
-            <a href="#" class="lista-presente-link">liquidificador</a>
-            <a href="#" class="lista-presente-link">jogo de facas</a>
-            <a href="#" class="lista-presente-link">batedeira</a>
-            <a href="#" class="lista-presente-link">ferro de passar</a>
-            <a href="#" class="lista-presente-link">prato</a>
-            <a href="#" class="lista-presente-link">pano de prato</a>
-            <a href="#" class="lista-presente-link">toalha de mesa</a>
-            <a href="#" class="lista-presente-link">tapete</a>
-            <a href="#" class="lista-presente-link">jogo de sobremesa</a>
-            <a href="#" class="lista-presente-link">jarra</a>
-            <a href="#" class="lista-presente-link">jogo de xícaras</a>
-            <a href="#" class="lista-presente-link">toalha de banho</a>
-            <a href="#" class="lista-presente-link">jogo de copo</a>
-            <a href="#" class="lista-presente-link">peneira</a>
-            <a href="#" class="lista-presente-link">forma de bolo</a>
-            <a href="#" class="lista-presente-link">chaleira elétrica</a>
-            <a href="#" class="lista-presente-link">travessa</a>
-            <a href="#" class="lista-presente-link">caminho de mesa</a>
-            <a href="#" class="lista-presente-link"></a>
-        </div>
-        </div>
+
+    <main class="presentes-container">
+        <a href="index.html" class="voltar">← Voltar ao início</a>
+
+        <header class="cabecalho-presentes">
+            <span class="detalhe">ISABELLY & WEBER</span>
+            <h1>Lista de presentes</h1>
+            <p>
+                Estamos preparando nosso novo lar!
+                Escolha um presente para fazer parte dessa história.
+            </p>
+            <span class="coracao">♡</span>
+        </header>
+
+        <section class="painel-presentes">
+            <div class="filtros">
+                <input
+                    id="busca-presente"
+                    type="search"
+                    placeholder="🔎 Procurar um presente..."
+                    aria-label="Procurar um presente"
+                >
+
+                <span id="contador-presentes" aria-live="polite">
+                    Carregando presentes...
+                </span>
+            </div>
+
+            <div id="lista-presentes" class="grade-presentes">
+                <p class="estado-lista">Carregando a lista...</p>
+            </div>
+
+            <p id="mensagem-lista" role="status" aria-live="polite"></p>
+        </section>
+
+        <footer class="rodape-presentes">
+            <span>♡</span>
+            <p>Obrigado por fazer parte desse momento tão especial!</p>
+        </footer>
     </main>
 
-    <script src="index.js" defer></script>
+    <dialog id="modal-presente" class="modal-presente">
+        <button
+            type="button"
+            id="fechar-modal"
+            class="fechar-modal"
+            aria-label="Fechar"
+        >×</button>
+
+        <span class="icone-presente">🎁</span>
+
+        <h2 id="nome-presente-modal">Presente escolhido</h2>
+
+        <p>Você confirma que deseja presentear com este item?</p>
+
+        <div class="acoes-modal">
+            <button id="confirmar-presente" class="botao-confirmar">
+                Sim, quero presentear!
+            </button>
+
+            <button id="cancelar-presente" class="botao-cancelar">
+                Escolher outro
+            </button>
+        </div>
+
+        <p id="mensagem-modal" role="status" aria-live="polite"></p>
+    </dialog>
+
+    
+<section class="secao-pix">
+    <span class="pix-coracao">♡</span>
+
+    <h2>Prefere contribuir com Pix?</h2>
+
+    <p class="pix-descricao">
+        Se preferir, você também pode nos presentear com uma
+        contribuição para nosso novo lar. Escolha um valor sugerido
+        e copie nossa chave Pix. Agradecemos de coração!
+    </p>
+
+    <div class="pix-valores">
+        <button type="button" class="botao-pix" data-valor="100">
+            <span>Contribuir com</span>
+            <strong>R$ 100,00</strong>
+            <small>Copiar chave Pix</small>
+        </button>
+
+        <button type="button" class="botao-pix" data-valor="200">
+            <span>Contribuir com</span>
+            <strong>R$ 200,00</strong>
+            <small>Copiar chave Pix</small>
+        </button>
+
+        <button type="button" class="botao-pix" data-valor="300">
+            <span>Contribuir com</span>
+            <strong>R$ 300,00</strong>
+            <small>Copiar chave Pix</small>
+        </button>
+
+        <button type="button" class="botao-pix" data-valor="400">
+            <span>Contribuir com</span>
+            <strong>R$ 400,00</strong>
+            <small>Copiar chave Pix</small>
+        </button>
+
+        <button type="button" class="botao-pix" data-valor="500">
+            <span>Contribuir com</span>
+            <strong>R$ 500,00</strong>
+            <small>Copiar chave Pix</small>
+        </button>
+    </div>
+
+    <p id="mensagem-pix" role="status" aria-live="polite">
+        Selecione um valor para copiar a chave Pix.
+    </p>
+
+    <p class="pix-aviso">
+        Após copiar, abra o aplicativo do seu banco, cole a chave
+        e informe o valor que deseja enviar.
+    </p>
+</section>
+
+
 </body>
 </html>

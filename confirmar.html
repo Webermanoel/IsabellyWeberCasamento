@@ -1,98 +1,107 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Confirmação de Presença</title>
+    <title>Confirmação de Presença | Isabelly & Weber</title>
+    <meta name="theme-color" content="#f8f5ed">
 
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
     <div class="girassol-container"></div>
 
-    <main class="apresentacao">
-
-        <h1 class="titulo_pricipal">
-            Confirmação de Presença
-        </h1>
-
-        <p class="intro_ducao">
-            Você está sendo convidado para o casamento de
-            Isabelly e Weber!
-        </p>
-
-        <div class="campo-nome">
-    <label for="nome">Confirme sua presença</label>
-
-    <p>Digite seu nome e sobrenome abaixo</p>
-
-    <input
-        type="text"
-        id="nome"
-        name="nome"
-        placeholder="Ex.: Maria Silva"
-        autocomplete="name"
-        maxlength="150"
-        required
-    >
-    
-    <p id="mensagem" role="status" aria-live="polite"></p>
-
-            <button
-            class="apresentacao__links__navegacao"
-            type="button"
-            id="confirmar">
-
-            Confirmar presença ✅!
-
-            <img
-                class="apresentacao__links__imagem"
-                src="images/alianças.jpg"
-                alt="Alianças"
-            >
-
-        </button>
-
-        <button
-            class="apresentacao__links__navegacao"
-            type="button"
-            id="cancelar">
-
-            Cancelar presença ❌!
-
-            <img
-                class="apresentacao__links__imagem"
-                src="images/alianças.jpg"
-                alt="Alianças"
-            >
-
-        </button>
-
-        <a
-            class="apresentacao__links__navegacao"
-            href="presentes.html">
-
-            <img
-                class="apresentacao__links__imagem"
-                src="images/presente.jpg"
-                alt="Presente"
-            >
-
-            Lista de Presentes 🎁!
-
+    <main class="pagina-confirmacao">
+        <a class="link-voltar" href="index.html">
+            <span aria-hidden="true">←</span> Voltar ao início
         </a>
 
-</div>
+        <header class="cabecalho-confirmacao">
+            <div class="monograma monograma-pequeno">I <span>&</span> W</div>
 
+            <p class="texto-superior">Será uma alegria ter você conosco</p>
+
+            <h1 class="titulo-casamento">
+                Confirmação <span>de</span> presença
+            </h1>
+
+            <div class="divisor-decorativo">
+                <span></span>
+                <span class="divisor-coracao">♡</span>
+                <span></span>
+            </div>
+
+            <p class="mensagem-inicial">
+                O casamento de Isabelly e Weber está chegando!
+                Preencha seu nome e sobrenome para confirmar
+                sua presença.
+            </p>
+        </header>
+
+        <section class="cartao-confirmacao">
+            <div class="icone-confirmacao" aria-hidden="true">♡</div>
+
+            <h2>Você estará com a gente?</h2>
+
+            <p class="texto-apoio">
+                Informe seu nome completo para registrar sua resposta.
+            </p>
+
+            <form id="form-confirmacao">
+                <div class="campo-nome">
+                    <label for="nome">Seu nome e sobrenome</label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Ex.: Maria Silva"
+                        autocomplete="name"
+                        maxlength="150"
+                        required
+                    >
+                </div>
+
+                <p id="mensagem" role="status" aria-live="polite"></p>
+
+                <div class="acoes-confirmacao">
+                    <button
+                        class="botao-site botao-principal"
+                        type="button"
+                        id="confirmar"
+                    >
+                        <span>Confirmar presença</span>
+                        <span aria-hidden="true">♡</span>
+                    </button>
+
+                    <button
+                        class="botao-site botao-cancelar"
+                        type="button"
+                        id="cancelar"
+                    >
+                        <span>Cancelar presença</span>
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </form>
+
+            <div class="separador-cartao"></div>
+
+            <a class="link-presentes" href="presentes.html">
+                <img src="images/presente.jpg" alt="">
+                Ainda não escolheu seu presente? Veja nossa lista.
+            </a>
+        </section>
+
+        <footer class="rodape-inicial">
+            <p>Com carinho, Isabelly & Weber</p>
+            <span>♡</span>
+        </footer>
     </main>
 
     <script src="confirmar.js" defer></script>
     <script src="index.js" defer></script>
-
 </body>
-
 </html>
