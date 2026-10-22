@@ -10,6 +10,10 @@ const app = express();
 app.use(express.json());
 app.use(express.static("public"));
 
+app.get("/", (req, res) => {
+    res.sendFile(process.cwd() + "/public/index.html");
+});
+
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
