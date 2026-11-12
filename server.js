@@ -187,6 +187,62 @@ app.post("/api/presentes/:id/reservar", async (req, res) => {
             mensagem: "Não foi possível confirmar o presente."
         });
     }
+
+app.post("/api/cha-panela/confirmar", async (req, res) => {
+    const nome = typeof req.body.nome === "string"
+        ? req.body.nome.trim().replace(/\s+/g, " ")
+        : "";
+
+    if (!nome || nome.length > 150 || nome.split(" ").length < 2) {
+        return res.status(400).json({
+            sucesso: false,
+            mensagem: "Digite seu nome e sobrenome corretamente."
+        });
+    }
+
+    try {
+        const resultado = await pool.query(
+            `INSERT INTO public.convidados_cha_panela
+                (nome, confirmado, confirmado_em)
+             VALUES ($1, TRUE, NOW())
+             ON CONFLICT (
+                (LOWER(REGEXP_REPLACE(TRIM(nome), '[[:space:]]+', ' ', 'g')))
+             )
+             DO UPDATE SET
+                confirmado = TRUE,
+                confirmado_em = CASE
+                    WHEN public.convidados_cha_panela.confirmado = TRUE
+                        THEN public.convidados_cha_panela.confirmado_em
+                    ELSE NOW()
+                END
+             RETURNING id, nome, confirmado`,
+            [nome]
+        );
+
+        const convidado = resultado.rows[0];
+
+        console.log(
+            `Confirmação do chá de panela - ID: ${convidado.id}`
+        );
+
+        return res.json({
+            sucesso: true,
+            mensagem: `Presença confirmada com sucesso, ${convidado.nome}!`
+        });
+
+    } catch (erro) {
+        console.error(
+            "Erro ao confirmar presença no chá de panela:",
+            erro.message
+        );
+
+        return res.status(500).json({
+            sucesso: false,
+            mensagem: "Não foi possível salvar a confirmação. Tente novamente."
+        });
+    }
+});
+
 });
 
 if (!process.env.VERCEL) {
@@ -196,5 +252,7 @@ if (!process.env.VERCEL) {
         console.log(`Servidor rodando em http://localhost:${PORT}`);
     });
 }
+
+POST /api/cha-panela/confirmar
 
 export default app;
