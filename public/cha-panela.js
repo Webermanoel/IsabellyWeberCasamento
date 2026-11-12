@@ -30,7 +30,19 @@ formularioCha.addEventListener("submit", async (event) => {
             body: JSON.stringify({ nome })
         });
 
-        const dados = await resposta.json();
+       const textoResposta = await resposta.text();
+
+let dados;
+
+try {
+    dados = JSON.parse(textoResposta);
+} catch (erro) {
+    console.error("Resposta recebida do servidor:", textoResposta);
+
+    throw new Error(
+        `O servidor retornou uma resposta inválida (HTTP ${resposta.status}). Verifique a rota da API.`
+    );
+}
 
         if (!resposta.ok || !dados.sucesso) {
             throw new Error(
