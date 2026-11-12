@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chá de Panela | Isabelly</title>
+    <meta name="theme-color" content="#f8f5ed">
+    <meta name="description" content="Confirme sua presença no chá de panela da Isabelly!">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cha-panela.css">
+</head>
+<body>
+    <div class="girassol-container"></div>
+
+    <main class="pagina-confirmacao pagina-cha-panela">
+
+        <a class="link-voltar" href="index.html">
+            <span aria-hidden="true">←</span> Voltar ao início
+        </a>
+
+        <header class="cabecalho-confirmacao">
+
+            <div class="monograma monograma-pequeno">
+                I <span>&</span> W
+            </div>
+
+            <p class="texto-superior">
+                Um momento especial está chegando!
+            </p>
+
+            <h1 class="titulo-casamento">
+                Chá de <span>Panela</span>
+            </h1>
+
+            <div class="divisor-decorativo">
+                <span></span>
+                <span class="divisor-coracao">♡</span>
+                <span></span>
+            </div>
+
+            <p class="mensagem-inicial">
+                A Isabelly está preparando uma nova etapa
+                cheia de amor e alegria!
+
+                Será muito especial ter você presente
+                nesse momento.
+            </p>
+
+        </header>
+
+        <section class="cartao-confirmacao">
+
+            <div class="icone-confirmacao" aria-hidden="true">
+                ♡
+            </div>
+
+            <h2>Você estará comigo?</h2>
+
+            <p class="texto-apoio">
+                Digite seu nome e sobrenome para confirmar
+                sua presença no chá de panela.
+            </p>
+
+            <form id="form-cha-panela">
+
+                <div class="campo-nome">
+
+                    <label for="nome-cha-panela">
+                        Seu nome e sobrenome
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome-cha-panela"
+                        name="nome"
+                        placeholder="Ex.: Maria Silva"
+                        autocomplete="name"
+                        maxlength="150"
+                        required
+                    >
+
+                </div>
+
+                <p
+                    id="mensagem-cha-panela"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+                <div class="acoes-confirmacao">
+
+                    <button
+                        class="botao-site botao-principal"
+                        type="submit"
+                        id="confirmar-cha-panela"
+                    >
+                        <span>Confirmar presença</span>
+                        <span aria-hidden="true">♡</span>
+                    </button>
+
+                </div>
+
+            </form>
+
+            <div class="separador-cartao"></div>
+
+            <p class="mensagem-final-cha">
+                Sua presença será um presente especial!
+            </p>
+
+        </section>
+
+        <footer class="rodape-inicial">
+            <p>Com carinho, Isabelly</p>
+            <span>♡</span>
+        </footer>
+
+    </main>
+
+    <script src="cha-panela.js" defer></script>
+    <script src="index.js" defer></script>
+
+</body>
+</html>

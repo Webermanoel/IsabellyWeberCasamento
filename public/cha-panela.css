@@ -1,0 +1,56 @@
+.pagina-cha-panela {
+    position: relative;
+}
+
+.pagina-cha-panela .titulo-casamento {
+    color: #8b6848;
+}
+
+.pagina-cha-panela .titulo-casamento span {
+    color: #b58a48;
+}
+
+.pagina-cha-panela .icone-confirmacao {
+    color: #b58a48;
+}
+
+.pagina-cha-panela .cartao-confirmacao {
+    border-color: rgba(181, 138, 72, 0.25);
+}
+
+.pagina-cha-panela .botao-principal {
+    background: linear-gradient(135deg, #b58a48, #96703c);
+    border-color: #96703c;
+}
+
+.pagina-cha-panela .botao-principal:hover {
+    filter: brightness(1.08);
+}
+
+.mensagem-final-cha {
+    color: #96703c;
+    font-family: Georgia, serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    text-align: center;
+    margin: 20px 0 5px;
+}
+
+#mensagem-cha-panela {
+    text-align: center;
+    margin: 12px 0;
+    font-size: 0.95rem;
+}
+
+#mensagem-cha-panela.sucesso {
+    color: #39804b;
+}
+
+#mensagem-cha-panela.erro {
+    color: #bd4242;
+}
+
+#confirmar-cha-panela:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
