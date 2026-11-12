@@ -253,6 +253,4 @@ if (!process.env.VERCEL) {
     });
 }
 
-POST /api/cha-panela/confirmar
-
 export default app;
