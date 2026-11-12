@@ -151,6 +151,7 @@ app.get("/api/presentes", async (req, res) => {
     }
 });
 
+
 app.post("/api/presentes/:id/reservar", async (req, res) => {
     const id = Number(req.params.id);
 
@@ -187,7 +188,7 @@ app.post("/api/presentes/:id/reservar", async (req, res) => {
             mensagem: "Não foi possível confirmar o presente."
         });
     }
-
+});
 
 app.post("/api/cha-panela/confirmar", async (req, res) => {
     const nome = typeof req.body.nome === "string"
@@ -237,9 +238,6 @@ app.post("/api/cha-panela/confirmar", async (req, res) => {
             mensagem: "Não foi possível salvar a confirmação. Tente novamente."
         });
     }
-});
-
-
 });
 
 if (!process.env.VERCEL) {
